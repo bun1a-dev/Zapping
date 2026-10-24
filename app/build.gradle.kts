@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.iwo.zapping"
+    namespace = "com.bun1a.zapping"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.iwo.zapping"
+        applicationId = "com.bun1a.zapping"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

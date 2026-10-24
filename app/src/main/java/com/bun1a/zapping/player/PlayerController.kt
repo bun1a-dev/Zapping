@@ -1,4 +1,4 @@
-package com.iwo.zapping.player
+package com.bun1a.zapping.player
 
 import android.content.Context
 import android.os.Handler
@@ -22,6 +22,8 @@ import org.json.JSONObject
 class PlayerController(
     private val context: Context,
     private val emit: (event: String, payload: JSONObject) -> Unit,
+    /** Wołane z true, gdy coś jest odtwarzane lub się ładuje, i z false, gdy nie. */
+    private val keepScreenOn: (Boolean) -> Unit,
 ) {
     private val main = Handler(Looper.getMainLooper())
     private var player: ExoPlayer? = null
@@ -42,6 +44,11 @@ class PlayerController(
                 Player.STATE_READY -> emitState("playing")
                 else -> Unit
             }
+            updateKeepScreenOn()
+        }
+
+        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            updateKeepScreenOn()
         }
 
         override fun onPlayerError(error: PlaybackException) {
@@ -69,6 +76,7 @@ class PlayerController(
         main.removeCallbacks(progressTicker)
         player?.stop()
         player?.clearMediaItems()
+        keepScreenOn(false)
     }
 
     fun release() {
@@ -76,6 +84,7 @@ class PlayerController(
         view?.player = null
         player?.release()
         player = null
+        keepScreenOn(false)
     }
 
     private fun create(): ExoPlayer {
@@ -90,6 +99,14 @@ class PlayerController(
                 player = it
                 view?.player = it
             }
+    }
+
+    /** Wygaszacz i wygaszanie ekranu mają nie działać, dopóki leci obraz albo trwa ładowanie. */
+    private fun updateKeepScreenOn() {
+        val exo = player
+        val active = exo != null && exo.playWhenReady &&
+            exo.playbackState != Player.STATE_IDLE && exo.playbackState != Player.STATE_ENDED
+        keepScreenOn(active)
     }
 
     private fun emitState(state: String, message: String? = null) {

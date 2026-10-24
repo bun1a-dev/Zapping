@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/archive.css">
+  <link rel="stylesheet" href="css/regions.css">
   <link rel="stylesheet" href="css/player.css">
 </head>
 <body>
@@ -26,6 +27,7 @@
         <button class="f field" id="field-login" data-key="field:login"><span>Login</span><b></b></button>
         <button class="f field" id="field-pin" data-key="field:pin"><span>PIN</span><b></b></button>
         <div class="keypad" id="keypad"></div>
+        <p class="busy" id="login-busy" hidden><i class="spinner"></i>Logowanie...</p>
         <p class="error" id="login-error"></p>
       </div>
     </section>
@@ -71,6 +73,15 @@
       <div class="progs" id="a-progs"></div>
     </section>
 
+    <!-- Wybór regionu kanału (np. TVP 3) -->
+    <section class="screen" id="screen-regions">
+      <div class="regions-head">
+        <h1 id="r-title"></h1>
+        <div class="muted">Wybierz wersję regionalną kanału.</div>
+      </div>
+      <div class="regions-grid" id="r-list"></div>
+    </section>
+
     <!-- Odtwarzacz -->
     <section class="screen" id="screen-player">
       <div class="backdrop"><b id="p-logo"></b><span>Tu pojawi się obraz z kanału.</span></div>
@@ -83,7 +94,7 @@
           <div class="osd-time" id="p-time"></div>
           <div class="bar"><i id="p-bar"></i></div>
           <div class="osd-next" id="p-next"></div>
-          <div class="osd-status" id="p-status"></div>
+          <div class="osd-status" id="p-status"><i class="spinner" id="p-spinner" hidden></i><span id="p-status-text"></span></div>
         </div>
       </div>
     </section>

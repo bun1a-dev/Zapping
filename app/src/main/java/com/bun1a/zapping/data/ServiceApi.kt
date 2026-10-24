@@ -1,4 +1,4 @@
-package com.iwo.zapping.data
+package com.bun1a.zapping.data
 
 import org.json.JSONArray
 import org.json.JSONObject
@@ -12,6 +12,7 @@ class ServiceApi(
     private val transport: BrowserTransport,
     private val identity: () -> DeviceIdentity?,
 ) {
+    private val regionCache = HashMap<String, List<Region>>()
 
     // ---------- konto ----------
 
@@ -82,6 +83,19 @@ class ServiceApi(
         return result
     }
 
+    /** Wersje regionalne kanału. Lista jest stała, więc po pierwszym pobraniu trzymamy ją w pamięci. */
+    suspend fun regions(channelId: String): List<Region> {
+        regionCache[channelId]?.let { return it }
+        val packages = json(call("GET", "live/regional-tv/all").body).optJSONArray("regionalTvPackageList")
+            ?: return emptyList()
+        val entry = packages.objects().firstOrNull { it.optString("channelExtId") == channelId }
+            ?: return emptyList()
+        val regions = (entry.optJSONArray("regionalTvList") ?: JSONArray()).objects()
+            .map { Region(name = it.optString("channelName"), suffix = it.optString("liveUrlSuffix")) }
+        regionCache[channelId] = regions
+        return regions
+    }
+
     // ---------- odtwarzanie ----------
 
     suspend fun streamTicket(request: StreamRequest): StreamTicket {
@@ -103,6 +117,14 @@ class ServiceApi(
         }
 
         var manifestUrl = data.optString("streamUrl")
+        if (request.region != null && !request.isCatchup) {
+            // brak listy regionów nie może zablokować oglądania: wtedy gra wersja domyślna
+            val region = runCatching { regions(request.channelId) }.getOrDefault(emptyList())
+                .firstOrNull { it.name == request.region }
+            if (region != null) {
+                manifestUrl = manifestUrl.replace(request.channelId, request.channelId + region.suffix)
+            }
+        }
         if (request.isCatchup && request.startSec != null && request.endSec != null) {
             manifestUrl += "&begin=${request.startSec}&end=${request.endSec}"
         }
@@ -181,6 +203,7 @@ class ServiceApi(
             category = item.optString("category").ifEmpty { "Inne" },
             logoUrl = if (logo.isEmpty()) "" else Endpoints.IMAGES + logo,
             catchupDays = catchupDays,
+            isRegional = item.optBoolean("isRegionalTv"),
         )
     }
 

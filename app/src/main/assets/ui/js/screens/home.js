@@ -2,6 +2,7 @@
 import { $, h, clear } from '../dom.js';
 import * as router from '../router.js';
 import * as store from '../store.js';
+import * as prefs from '../prefs.js';
 import { focusEl, onReveal } from '../focus.js';
 import { createNumberEntry, isDigit } from '../numberEntry.js';
 import { formatTime, progressPercent, minutesLeft, initials } from '../format.js';
@@ -34,8 +35,11 @@ export const leave = () => entry.reset();
 /** Po wejściu fokus ląduje na pierwszym kanale, żeby od razu dało się nacisnąć OK. */
 export const defaultFocus = () => $('.tile') ?? $('[data-key="status:retry"]');
 
-/** Powrót z odtwarzacza albo archiwum: tylko odśwież paski postępu. */
-export const resume = () => refreshProgress();
+/** Powrót z innego ekranu: odśwież paski postępu albo ustawienia. */
+export function resume() {
+  if (view === 'settings') settings.render();   // etykieta regionu mogła się zmienić
+  else refreshProgress();
+}
 
 export function onKey(key) {
   if (isDigit(key)) {
@@ -50,7 +54,7 @@ export function onKey(key) {
 }
 
 async function load() {
-  showStatus('Ładowanie kanałów...');
+  showStatus('Ładowanie kanałów...', { spinner: true });
   try {
     await store.loadChannels();
   } catch (error) {
@@ -71,8 +75,8 @@ function onLoadFailed(error) {
   showStatus(error.message, { retry: true });
 }
 
-function showStatus(text, { retry = false } = {}) {
-  clear(statusEl).append(h('p', {}, text));
+function showStatus(text, { retry = false, spinner = false } = {}) {
+  clear(statusEl).append(h('p', {}, spinner ? h('i', { class: 'spinner' }) : null, text));
   if (retry) {
     const button = h('button', { class: 'f btn', dataset: { key: 'status:retry' }, onclick: load }, 'Spróbuj ponownie');
     statusEl.append(button);
@@ -174,8 +178,13 @@ function refreshProgress() {
 }
 
 function open(channel) {
-  if (view === 'archive') router.go('archive', { params: { channelId: channel.id } });
-  else router.go('player', { params: { channelId: channel.id, mode: 'live' } });
+  if (view === 'archive') {
+    router.go('archive', { params: { channelId: channel.id } });
+  } else if (channel.isRegional && !prefs.getRegion(channel.id)) {
+    router.go('regions', { params: { channelId: channel.id, thenPlay: true } });   // pierwszy raz: najpierw wybór regionu
+  } else {
+    router.go('player', { params: { channelId: channel.id, mode: 'live' } });
+  }
 }
 
 function focusChannelNumber(number) {

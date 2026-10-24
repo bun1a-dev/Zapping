@@ -7,6 +7,7 @@ import { $ } from '../dom.js';
 import { call, on } from '../native.js';
 import * as router from '../router.js';
 import * as store from '../store.js';
+import * as prefs from '../prefs.js';
 import { createNumberEntry, isDigit } from '../numberEntry.js';
 import { formatTime, minutesLeft, progressPercent } from '../format.js';
 import { toast } from '../toast.js';
@@ -18,6 +19,7 @@ const ui = {
   osd: $('#p-osd'), flag: $('#p-flag'), flagText: $('#p-flag-text'), logo: $('#p-logo'),
   num: $('#p-num'), name: $('#p-name'), title: $('#p-title'), time: $('#p-time'),
   bar: $('#p-bar'), next: $('#p-next'), status: $('#p-status'),
+  statusText: $('#p-status-text'), spinner: $('#p-spinner'),
 };
 
 const entry = createNumberEntry({ onCommit: zapToNumber });
@@ -89,7 +91,10 @@ function start() {
 }
 
 function playParams() {
-  if (mode === 'live') return { channelId: channel.id };
+  if (mode === 'live') {
+    const region = channel.isRegional ? prefs.getRegion(channel.id) : null;
+    return region ? { channelId: channel.id, region } : { channelId: channel.id };
+  }
   return {
     channelId: channel.id,
     programId: program.id,
@@ -169,9 +174,10 @@ function renderProgram() {
 
 function renderStatus() {
   ui.status.classList.toggle('error', status === 'error');
-  if (status === 'loading') ui.status.textContent = 'Łączenie z kanałem...';
-  else if (status === 'error') ui.status.textContent = `${message} Naciśnij OK, aby spróbować ponownie.`;
-  else ui.status.textContent = '';
+  ui.spinner.hidden = status !== 'loading';
+  if (status === 'loading') ui.statusText.textContent = 'Łączenie z kanałem...';
+  else if (status === 'error') ui.statusText.textContent = `${message} Naciśnij OK, aby spróbować ponownie.`;
+  else ui.statusText.textContent = '';
 }
 
 function showOsd() {

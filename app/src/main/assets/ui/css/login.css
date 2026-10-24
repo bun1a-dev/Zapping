@@ -27,4 +27,6 @@
 .key:focus { background: var(--raised-hi); transform: scale(1.06); }
 .key.action:focus { background: var(--osd); color: var(--deep); }
 
+.busy { margin-top: 24px; font-size: 34px; font-weight: 600; color: var(--ink); }
+.busy .spinner { width: 46px; height: 46px; border-width: 6px; }
 .error { min-height: 40px; margin-top: 22px; font-size: 28px; color: var(--live); }

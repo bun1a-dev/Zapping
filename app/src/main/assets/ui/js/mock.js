@@ -8,14 +8,19 @@ document.documentElement.classList.add('mock');
 
 const CHANNELS = [
   [1, 'TVP 1 HD', 'Ogólne', 0], [2, 'TVP 2 HD', 'Ogólne', 0], [3, 'TVN HD', 'Ogólne', 2],
-  [5, 'Polsat HD', 'Ogólne', 7], [6, 'TV4 HD', 'Ogólne', 7],
+  [5, 'Polsat HD', 'Ogólne', 7], [6, 'TV4 HD', 'Ogólne', 7], [25, 'TVP 3', 'Ogólne', 0],
   [22, 'TVN24 HD', 'Informacje', 7], [29, 'Polsat News', 'Informacje', 7],
   [111, 'Eurosport 1 HD', 'Sport', 0], [114, 'Polsat Sport 1', 'Sport', 7], [120, 'Eleven Sports 1 HD', 'Sport', 7],
   [222, 'TVN Fabuła HD', 'Filmy i seriale', 0], [226, 'Kino Polska HD', 'Filmy i seriale', 7], [243, 'Polsat Film HD', 'Filmy i seriale', 7],
   [338, 'TLC HD', 'Lifestyle i rozrywka', 7],
   [400, 'Discovery Channel HD', 'Nauka i świat', 7], [444, 'National Geographic HD', 'Nauka i świat', 7],
   [556, 'MiniMini+ HD', 'Dzieci', 7], [567, 'Disney Channel HD', 'Dzieci', 7],
-].map(([number, name, category, catchupDays]) => ({ id: String(number), number, name, category, logoUrl: '', catchupDays }));
+].map(([number, name, category, catchupDays]) => ({
+  id: String(number), number, name, category, logoUrl: '', catchupDays, isRegional: number === 25,
+}));
+
+const REGIONS = ['Białystok', 'Bydgoszcz', 'Gdańsk', 'Gorzów Wielkopolski', 'Katowice', 'Kielce', 'Kraków', 'Lublin',
+  'Łódź', 'Olsztyn', 'Opole', 'Poznań', 'Rzeszów', 'Szczecin', 'Warszawa', 'Wrocław'];
 
 const TITLES = {
   'Ogólne': ['Poranek z kawą', 'Wiadomości', 'Serial dnia', 'Teleturniej', 'Magazyn reporterów', 'Film wieczoru', 'Kabaret'],
@@ -58,6 +63,7 @@ const handlers = {
   'session.logout': () => null,
   'cache.clear': () => null,
   channels: () => CHANNELS,
+  regions: () => REGIONS.map(name => ({ name: `TVP3 ${name}` })),
   epg: ({ day }) => Object.fromEntries(CHANNELS.map(channel =>
     [channel.id, [...dayPrograms(channel, day + 1), ...dayPrograms(channel, day)]])),
   play: () => {

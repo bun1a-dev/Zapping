@@ -1,4 +1,4 @@
-package com.iwo.zapping.data
+package com.bun1a.zapping.data
 
 /** Jedyne miejsce z adresami i stałymi usługi. Reszta kodu nie zna żadnych URL-i. */
 internal object Endpoints {

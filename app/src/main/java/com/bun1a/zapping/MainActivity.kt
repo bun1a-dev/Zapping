@@ -1,16 +1,17 @@
-package com.iwo.zapping
+package com.bun1a.zapping
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.WindowManager
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.addCallback
 import androidx.media3.ui.PlayerView
-import com.iwo.zapping.bridge.UiBridge
-import com.iwo.zapping.bridge.registerRoutes
-import com.iwo.zapping.player.PlaybackCoordinator
-import com.iwo.zapping.player.PlayerController
-import com.iwo.zapping.ui.UiWebView
+import com.bun1a.zapping.bridge.UiBridge
+import com.bun1a.zapping.bridge.registerRoutes
+import com.bun1a.zapping.player.PlaybackCoordinator
+import com.bun1a.zapping.player.PlayerController
+import com.bun1a.zapping.ui.UiWebView
 import org.json.JSONObject
 
 /**
@@ -33,7 +34,11 @@ class MainActivity : ComponentActivity() {
         UiWebView.configure(uiWebView)
 
         bridge = UiBridge(uiWebView)
-        player = PlayerController(this) { event, payload -> bridge.emit(event, payload) }
+        player = PlayerController(
+            context = this,
+            emit = { event, payload -> bridge.emit(event, payload) },
+            keepScreenOn = { on -> applyKeepScreenOn(on) },
+        )
         player.attach(findViewById<PlayerView>(R.id.player_view))
         playback = PlaybackCoordinator(graph.session, graph.api, graph.store, graph.transport, player)
         registerRoutes(bridge, graph, playback)
@@ -75,6 +80,12 @@ class MainActivity : ComponentActivity() {
             }
         }
         return super.dispatchKeyEvent(event)
+    }
+
+    /** Telewizor nie włącza wygaszacza ekranu podczas oglądania, a w menu działa normalnie. */
+    private fun applyKeepScreenOn(on: Boolean) {
+        if (on) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
     /** Interfejs decyduje, czy Wstecz cofa go o ekran. Jeśli nie ma dokąd, zamykamy aplikację. */

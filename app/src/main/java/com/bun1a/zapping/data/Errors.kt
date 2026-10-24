@@ -1,4 +1,4 @@
-package com.iwo.zapping.data
+package com.bun1a.zapping.data
 
 /** Błędy, które interfejs potrafi pokazać użytkownikowi. [code] rozróżnia je po stronie JS. */
 open class ServiceException(message: String, val code: String) : Exception(message)

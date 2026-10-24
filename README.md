@@ -10,11 +10,14 @@ Nieoficjalny klient Orange TV GO na Google TV i Android TV. Kanały na żywo, ar
 
 > Zapping jest niezależnym projektem. Nie jest powiązany z Orange Polska ani przez nią wspierany. Orange i Orange TV GO są znakami towarowymi ich właściciela i są tu użyte wyłącznie do opisania zgodności. Do korzystania z aplikacji potrzebna jest własna, aktywna subskrypcja.
 
+> **Projekt vibecoded.** Kod powstał w całości z pomocą asystenta AI, a człowiek kierował projektem, testował go na prawdziwym telewizorze i sprawdzał działanie. Nie przeszedł niezależnego audytu bezpieczeństwa ani przeglądu kodu przez doświadczonego programistę Androida. Traktuj go jako działający prototyp i przeczytaj kod, zanim mu zaufasz.
+
 ## Funkcje
 
 - Kanały na żywo z panelem "teraz leci", godzinami programu i paskiem postępu.
 - Archiwum: wybór kanału, dnia i zakończonego programu.
 - Szybka zmiana kanału strzałkami, przyciskami CH+ i CH- oraz cyframi z pilota.
+- Wybór wersji regionalnej kanałów takich jak TVP 3 (przy pierwszym wejściu i w Ustawieniach).
 - Interfejs zaprojektowany pod telewizor: duże elementy, wyraźny fokus, pełna obsługa bez myszy i ekranu dotykowego.
 - Dane logowania szyfrowane kluczem z Android Keystore. Aplikacja nie wysyła ich nigdzie poza usługę, z którą się łączy.
 
@@ -70,7 +73,7 @@ app/src/main
 │   ├── js/screens               jeden plik na ekran
 │   ├── js/native.js             most do Kotlina (js/mock.js: atrapa do podglądu)
 │   └── css                      tokeny, baza i style ekranów
-└── java/com/iwo/zapping
+└── java/com/bun1a/zapping
     ├── data                     transport, endpointy, sesja, szyfrowany magazyn
     ├── bridge                   most JS i Kotlin oraz lista metod (Routes.kt)
     ├── player                   ExoPlayer, DRM, koordynator odtwarzania
@@ -99,7 +102,6 @@ Otwórz `http://localhost:8000`, przejdź do trybu pełnoekranowego i steruj str
 
 - Maksymalna jakość obrazu to 720p. Usługa przydziela jakość według typu klienta, a aplikacja zgłasza się jako przeglądarka.
 - Login i PIN wpisuje się klawiaturą numeryczną, więc pole przyjmuje tylko cyfry.
-- Regionalne wersje TVP3 nie są jeszcze obsługiwane.
 - CH+ i CH- działają tylko na pilotach, które mają te przyciski. Pilot Chromecasta z Google TV ich nie ma.
 
 ## Zastrzeżenie

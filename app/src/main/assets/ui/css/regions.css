@@ -1,0 +1,13 @@
+#screen-regions.active { display: block; }
+.regions-head { padding: 20px 0 30px; }
+.regions-head h1 { font-size: 64px; font-weight: 800; }
+.regions-head .muted { font-size: 30px; margin-top: 6px; }
+
+.regions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 8px; }
+.region {
+  padding: 26px 28px; border-radius: var(--r-tile); background: var(--surface);
+  font-size: 32px; font-weight: 600; text-align: left;
+}
+.region.on { box-shadow: inset 0 0 0 4px var(--osd); }
+.region:focus { background: var(--raised-hi); transform: scale(1.04); box-shadow: var(--ring); }
+.regions-grid .empty { grid-column: 1 / -1; }

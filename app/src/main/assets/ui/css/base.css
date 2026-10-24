@@ -41,6 +41,15 @@ button.f { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .bar { width: 620px; height: 8px; background: var(--raised); border-radius: 4px; overflow: hidden; }
 .bar > i { display: block; height: 100%; width: 0; background: var(--osd); border-radius: 4px; }
 
+/* Wskaźnik ładowania. Przy ograniczeniu animacji kręci się wolniej, ale nie znika, bo niesie informację. */
+.spinner {
+  display: inline-block; width: 34px; height: 34px; margin-right: 16px; vertical-align: middle;
+  border: 5px solid var(--raised); border-top-color: var(--osd); border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
+
 /* Wpisywany numer kanału */
 #entry {
   position: absolute; left: 96px; top: 56px; z-index: 9;

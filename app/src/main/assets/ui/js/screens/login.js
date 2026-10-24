@@ -17,6 +17,7 @@ const state = { login: '', pin: '', active: 'login', busy: false };
 
 const fieldEls = { login: $('#field-login'), pin: $('#field-pin') };
 const errorEl = $('#login-error');
+const busyEl = $('#login-busy');
 let nextKey = null;
 
 buildKeypad();
@@ -25,6 +26,7 @@ fieldEls.pin.addEventListener('click', () => setActive('pin'));
 
 export function enter() {
   Object.assign(state, { login: '', pin: '', active: 'login', busy: false });
+  busyEl.hidden = true;
   showError('');
   render();
 }
@@ -32,7 +34,7 @@ export function enter() {
 export const defaultFocus = () => $('[data-key="key:5"]');
 
 export function onKey(key) {
-  if (!isDigit(key)) return false;
+  if (!isDigit(key) || state.busy) return false;
   type(key);
   return true;
 }
@@ -52,6 +54,7 @@ function buildKeypad() {
 }
 
 function press(value) {
+  if (state.busy) return;
   if (value === 'delete') erase();
   else if (value === 'next') advance();
   else type(value);
@@ -89,6 +92,7 @@ async function submit() {
   if (!state.login || !state.pin) return showError('Wpisz login i PIN.');
 
   state.busy = true;
+  busyEl.hidden = false;
   showError('');
   try {
     await call('session.login', { login: state.login, pin: state.pin });
@@ -103,6 +107,7 @@ async function submit() {
     focusEl(fieldEls.pin);
   } finally {
     state.busy = false;
+    busyEl.hidden = true;
   }
 }
 

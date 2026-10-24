@@ -1,6 +1,7 @@
 /**
  * Ekrany i historia. Ekran to moduł z opcjonalnymi funkcjami:
- *   enter(params), leave(), resume(), onBack(), onKey(key), defaultFocus()
+ *   enter(params), leave(), resume(), onBack(), onKey(key), defaultFocus(), rememberFocus
+ * Ekran z rememberFocus = false (np. lista wyboru) zawsze startuje od defaultFocus.
  * Router pamięta, który element miał fokus na każdym ekranie, i przywraca go przy powrocie.
  */
 import { $ } from './dom.js';
@@ -53,7 +54,7 @@ function show(name) {
 
 function restoreFocus(name) {
   const screen = screens.get(name);
-  const key = lastFocus.get(name);
+  const key = screen.rememberFocus === false ? null : lastFocus.get(name);
   const remembered = key ? screen.el.querySelector(`[data-key="${CSS.escape(key)}"]`) : null;
   const target = remembered ?? screen.defaultFocus?.() ?? firstFocusable(screen.el);
   if (target) focusEl(target);

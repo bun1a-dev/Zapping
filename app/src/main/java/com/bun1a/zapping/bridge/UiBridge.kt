@@ -1,10 +1,10 @@
-package com.iwo.zapping.bridge
+package com.bun1a.zapping.bridge
 
 import android.annotation.SuppressLint
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
-import com.iwo.zapping.data.ServiceException
+import com.bun1a.zapping.data.ServiceException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

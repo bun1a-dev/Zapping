@@ -1,4 +1,4 @@
-package com.iwo.zapping
+package com.bun1a.zapping
 
 import android.app.Application
 

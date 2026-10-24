@@ -1,11 +1,11 @@
-package com.iwo.zapping.player
+package com.bun1a.zapping.player
 
-import com.iwo.zapping.data.BrowserTransport
-import com.iwo.zapping.data.Endpoints
-import com.iwo.zapping.data.ServiceApi
-import com.iwo.zapping.data.Session
-import com.iwo.zapping.data.SessionStore
-import com.iwo.zapping.data.StreamRequest
+import com.bun1a.zapping.data.BrowserTransport
+import com.bun1a.zapping.data.Endpoints
+import com.bun1a.zapping.data.ServiceApi
+import com.bun1a.zapping.data.Session
+import com.bun1a.zapping.data.SessionStore
+import com.bun1a.zapping.data.StreamRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

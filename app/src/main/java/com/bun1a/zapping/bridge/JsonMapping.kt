@@ -1,7 +1,8 @@
-package com.iwo.zapping.bridge
+package com.bun1a.zapping.bridge
 
-import com.iwo.zapping.data.Channel
-import com.iwo.zapping.data.Program
+import com.bun1a.zapping.data.Channel
+import com.bun1a.zapping.data.Program
+import com.bun1a.zapping.data.Region
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -13,6 +14,7 @@ internal fun Channel.toJson(): JSONObject = JSONObject()
     .put("category", category)
     .put("logoUrl", logoUrl)
     .put("catchupDays", catchupDays)
+    .put("isRegional", isRegional)
 
 internal fun Program.toJson(): JSONObject = JSONObject()
     .put("id", id)
@@ -28,4 +30,9 @@ internal fun Map<String, List<Program>>.toJsonObject(): JSONObject = JSONObject(
     forEach { (channelId, programs) ->
         result.put(channelId, JSONArray().also { array -> programs.forEach { array.put(it.toJson()) } })
     }
+}
+
+/** Interfejs potrzebuje tylko nazw. Sufiks adresu zostaje po stronie Kotlina. */
+internal fun List<Region>.toRegionsJson(): JSONArray = JSONArray().also { array ->
+    forEach { array.put(JSONObject().put("name", it.name)) }
 }

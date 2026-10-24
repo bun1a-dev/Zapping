@@ -7,6 +7,7 @@ import { formatTime } from './format.js';
 import * as login from './screens/login.js';
 import * as home from './screens/home.js';
 import * as archive from './screens/archive.js';
+import * as regions from './screens/regions.js';
 import * as player from './screens/player.js';
 
 async function boot() {
@@ -19,6 +20,7 @@ async function boot() {
   router.register('login', login);
   router.register('home', home);
   router.register('archive', archive);
+  router.register('regions', regions);
   router.register('player', player);
 
   window.addEventListener('keydown', event => handleKey(event.key, event));

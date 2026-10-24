@@ -1,4 +1,4 @@
-package com.iwo.zapping.data
+package com.bun1a.zapping.data
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

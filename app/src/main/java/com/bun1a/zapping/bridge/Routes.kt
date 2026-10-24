@@ -1,9 +1,9 @@
-package com.iwo.zapping.bridge
+package com.bun1a.zapping.bridge
 
-import com.iwo.zapping.AppGraph
-import com.iwo.zapping.data.Credentials
-import com.iwo.zapping.data.StreamRequest
-import com.iwo.zapping.player.PlaybackCoordinator
+import com.bun1a.zapping.AppGraph
+import com.bun1a.zapping.data.Credentials
+import com.bun1a.zapping.data.StreamRequest
+import com.bun1a.zapping.player.PlaybackCoordinator
 import org.json.JSONObject
 import java.time.LocalDate
 import java.time.ZoneId
@@ -36,6 +36,10 @@ fun registerRoutes(bridge: UiBridge, graph: AppGraph, playback: PlaybackCoordina
         session.authorized { api.guide(dayStartSec) }.toJsonObject()
     }
 
+    bridge.register("regions") { params ->
+        session.authorized { api.regions(params.getString("channelId")) }.toRegionsJson()
+    }
+
     bridge.register("play") { params ->
         playback.start(
             StreamRequest(
@@ -43,6 +47,7 @@ fun registerRoutes(bridge: UiBridge, graph: AppGraph, playback: PlaybackCoordina
                 programId = params.optString("programId").ifEmpty { null },
                 startSec = if (params.has("start")) params.getLong("start") else null,
                 endSec = if (params.has("end")) params.getLong("end") else null,
+                region = params.optString("region").ifEmpty { null },
             ),
         )
     }

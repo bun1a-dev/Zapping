@@ -1,4 +1,4 @@
-package com.iwo.zapping.ui
+package com.bun1a.zapping.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -7,7 +7,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.webkit.WebViewAssetLoader
-import com.iwo.zapping.data.Endpoints
+import com.bun1a.zapping.data.Endpoints
 
 /** Konfiguracja WebView z interfejsem. Pliki z assets/ui są serwowane lokalnie, bez sieci. */
 object UiWebView {

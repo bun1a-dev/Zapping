@@ -1,4 +1,4 @@
-package com.iwo.zapping.data
+package com.bun1a.zapping.data
 
 data class Credentials(val login: String, val pin: String)
 
@@ -13,7 +13,12 @@ data class Channel(
     val logoUrl: String,
     /** Ile dni wstecz działa archiwum. 0 oznacza brak archiwum. */
     val catchupDays: Int,
+    /** Kanał ma wersje regionalne (np. TVP 3). */
+    val isRegional: Boolean,
 )
+
+/** Wersja regionalna kanału. [suffix] dopisuje się do identyfikatora kanału w adresie strumienia. */
+data class Region(val name: String, val suffix: String)
 
 data class Program(val id: String, val title: String, val startSec: Long, val endSec: Long)
 
@@ -23,6 +28,8 @@ data class StreamRequest(
     val programId: String? = null,
     val startSec: Long? = null,
     val endSec: Long? = null,
+    /** Nazwa wersji regionalnej (tylko na żywo, tylko kanały regionalne). */
+    val region: String? = null,
 ) {
     val isCatchup: Boolean get() = programId != null
 }

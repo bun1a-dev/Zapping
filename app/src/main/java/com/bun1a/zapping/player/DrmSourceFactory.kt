@@ -1,4 +1,4 @@
-package com.iwo.zapping.player
+package com.bun1a.zapping.player
 
 import androidx.annotation.OptIn
 import androidx.media3.common.C
