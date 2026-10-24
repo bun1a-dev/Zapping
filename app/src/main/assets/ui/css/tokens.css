@@ -1,0 +1,17 @@
+/* Kolory, rozmiary i czcionka w jednym miejscu. Skala 1920x1080 (1 dp = 2 px). */
+:root {
+  --deep: #082B30;        /* tło */
+  --surface: #0F3A40;     /* płyty, pola */
+  --raised: #164B52;      /* kafelki i przyciski w spoczynku */
+  --raised-hi: #1F6770;   /* element z fokusem */
+  --ink: #EEF6F2;         /* tekst główny i ramka fokusu */
+  --muted: #86AEAA;       /* tekst pomocniczy */
+  --osd: #F6D04D;         /* numer kanału, pasek postępu, akcent */
+  --live: #FF5468;        /* wskaźnik "na żywo", błędy */
+
+  --r-tile: 14px;
+  --r-pill: 999px;
+  --ring: 0 0 0 4px var(--ink);
+
+  --font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

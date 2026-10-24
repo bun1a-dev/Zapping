@@ -1,0 +1,63 @@
+/* ---------- pasek górny ---------- */
+.topbar { display: flex; align-items: center; height: 72px; }
+.wordmark { display: flex; align-items: center; gap: 16px; margin-right: 64px; }
+.wordmark img { width: 52px; height: 52px; }
+.wordmark span { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+.tabs { display: flex; gap: 12px; flex: 1; }
+.tab {
+  padding: 14px 30px; border-radius: var(--r-pill);
+  background: transparent; color: var(--muted); font-size: 32px; font-weight: 600;
+}
+.tab.selected { background: var(--surface); color: var(--ink); }
+.tab:focus { background: var(--raised-hi); color: var(--ink); transform: scale(1.06); }
+.clock { font-size: 34px; font-variant-numeric: tabular-nums; color: var(--muted); }
+
+/* ---------- panel "teraz leci" ---------- */
+.hero { display: flex; align-items: flex-end; gap: 56px; height: 300px; margin-top: 24px; }
+.hero-num {
+  min-width: 400px;
+  font-size: 250px; line-height: .82; font-weight: 800; letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums; color: var(--osd);
+}
+.hero-info { padding-bottom: 6px; max-width: 1100px; }
+.hero-name { font-size: 52px; font-weight: 700; }
+.hero-title { font-size: 42px; margin-top: 14px; }
+.hero-time { font-size: 28px; color: var(--muted); margin-top: 8px; }
+.hero .bar { margin-top: 18px; }
+.hero-next { font-size: 28px; color: var(--muted); margin-top: 16px; }
+.hero-badge {
+  display: inline-block; margin-top: 16px; padding: 6px 18px;
+  border-radius: var(--r-pill); background: var(--surface); font-size: 24px; color: var(--muted);
+}
+
+/* ---------- rzędy kanałów ---------- */
+#rows { position: absolute; left: 0; right: 0; top: 480px; bottom: 0; overflow: hidden; scroll-behavior: smooth; }
+.row-title { font-size: 34px; font-weight: 700; padding: 0 64px; margin-bottom: 4px; }
+.tiles { position: relative; display: flex; gap: 26px; padding: 18px 64px 22px; overflow: hidden; scroll-behavior: smooth; }
+.tile {
+  flex: 0 0 330px; height: 190px; position: relative;
+  background: var(--raised); border-radius: var(--r-tile);
+  text-align: left; padding: 18px 20px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.tile:focus { background: var(--raised-hi); transform: scale(1.07); }
+.tile-num { font-size: 30px; font-weight: 800; color: var(--osd); font-variant-numeric: tabular-nums; }
+.tile-logo {
+  position: absolute; right: 20px; top: 14px; max-width: 150px;
+  font-size: 46px; font-weight: 800; letter-spacing: -0.02em; color: var(--muted);
+}
+img.tile-logo { max-height: 60px; object-fit: contain; }
+.tile-name { font-size: 28px; font-weight: 600; margin-bottom: 14px; }
+.tile .bar { position: absolute; left: 20px; right: 20px; bottom: 14px; width: auto; height: 6px; }
+.rows-end { height: 480px; }
+
+/* ---------- ładowanie i błędy ---------- */
+.status { position: absolute; left: 64px; top: 300px; font-size: 36px; }
+.status p { margin-bottom: 30px; max-width: 1000px; line-height: 1.4; }
+
+/* ---------- ustawienia ---------- */
+#settings-view { position: absolute; left: 64px; top: 170px; width: 1100px; }
+#settings-view h2 { font-size: 44px; margin-bottom: 8px; }
+#settings-view .lead { font-size: 30px; color: var(--muted); margin-bottom: 40px; line-height: 1.4; }
+#settings-view .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; margin-bottom: 60px; }
+#settings-view .about { font-size: 28px; color: var(--muted); line-height: 1.45; max-width: 900px; }

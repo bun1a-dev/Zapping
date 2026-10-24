@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920">
+  <title>Zapping</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/archive.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+  <div id="stage">
+
+    <!-- Logowanie -->
+    <section class="screen" id="screen-login">
+      <div class="login-brand">
+        <img class="brand-mark" src="img/mark.svg" alt="">
+        <h1>Zapping</h1>
+        <p>Telewizja z abonamentu, na dużym ekranie i pod pilota.</p>
+        <p class="muted">Nieoficjalna aplikacja, niezwiązana z operatorem usługi.</p>
+      </div>
+      <div class="login-form">
+        <button class="f field" id="field-login" data-key="field:login"><span>Login</span><b></b></button>
+        <button class="f field" id="field-pin" data-key="field:pin"><span>PIN</span><b></b></button>
+        <div class="keypad" id="keypad"></div>
+        <p class="error" id="login-error"></p>
+      </div>
+    </section>
+
+    <!-- Ekran główny: Na żywo, Archiwum, Ustawienia -->
+    <section class="screen" id="screen-home">
+      <header class="topbar">
+        <div class="wordmark"><img src="img/mark.svg" alt=""><span>Zapping</span></div>
+        <nav class="tabs">
+          <button class="f tab" data-key="tab:live" data-tab="live">Na żywo</button>
+          <button class="f tab" data-key="tab:archive" data-tab="archive">Archiwum</button>
+          <button class="f tab" data-key="tab:settings" data-tab="settings">Ustawienia</button>
+        </nav>
+        <div class="clock" id="clock"></div>
+      </header>
+
+      <div id="channel-view">
+        <div class="hero">
+          <div class="hero-num" id="h-num"></div>
+          <div class="hero-info">
+            <div class="hero-name" id="h-name"></div>
+            <div class="hero-title" id="h-title"></div>
+            <div class="hero-time" id="h-time"></div>
+            <div class="bar"><i id="h-bar"></i></div>
+            <div class="hero-next" id="h-next"></div>
+            <span class="hero-badge" id="h-badge"></span>
+          </div>
+        </div>
+        <div id="rows"></div>
+      </div>
+
+      <div id="settings-view" hidden></div>
+      <div class="status" id="home-status" hidden></div>
+    </section>
+
+    <!-- Archiwum: dni i programy jednego kanału -->
+    <section class="screen" id="screen-archive">
+      <div class="days-head">
+        <h1 id="a-title"></h1>
+        <div class="muted" id="a-sub"></div>
+      </div>
+      <div class="days-list" id="a-days"></div>
+      <div class="progs" id="a-progs"></div>
+    </section>
+
+    <!-- Odtwarzacz -->
+    <section class="screen" id="screen-player">
+      <div class="backdrop"><b id="p-logo"></b><span>Tu pojawi się obraz z kanału.</span></div>
+      <div class="osd-flag" id="p-flag"><i></i><span id="p-flag-text"></span></div>
+      <div class="osd" id="p-osd">
+        <div class="osd-num" id="p-num"></div>
+        <div class="osd-info">
+          <div class="osd-name" id="p-name"></div>
+          <div class="osd-title" id="p-title"></div>
+          <div class="osd-time" id="p-time"></div>
+          <div class="bar"><i id="p-bar"></i></div>
+          <div class="osd-next" id="p-next"></div>
+          <div class="osd-status" id="p-status"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="entry"></div>
+    <div id="toast"></div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

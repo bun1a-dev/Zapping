@@ -1,0 +1,13 @@
+# Android Studio / Gradle
+.gradle/
+.idea/
+*.iml
+build/
+.kotlin/
+captures/
+local.properties
+
+# nigdy do repo: eksporty ruchu sieciowego i dane logowania
+*.har
+*.keystore
+*.jks

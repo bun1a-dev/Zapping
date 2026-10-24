@@ -1,0 +1,44 @@
+/* Ekran odtwarzacza jest przezroczysty: wideo gra w natywnym odtwarzaczu pod spodem. */
+#screen-player { padding: 0; background: transparent; }
+
+/* Zastępcze tło tylko w podglądzie w przeglądarce. */
+.backdrop {
+  display: none; position: absolute; inset: 0;
+  flex-direction: column; align-items: center; justify-content: center; background: #05181B;
+}
+html.mock .backdrop { display: flex; }
+.backdrop b { font-size: 200px; white-space: nowrap; font-weight: 800; color: #0B2A2E; letter-spacing: -0.04em; }
+.backdrop span { font-size: 28px; color: #2B5A60; }
+
+.osd {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 120px 96px 72px;
+  background: linear-gradient(to top, rgba(0, 0, 0, .82), rgba(0, 0, 0, 0));
+  display: flex; align-items: flex-end; gap: 56px; transition: opacity .3s ease;
+}
+.osd.hidden { opacity: 0; }
+.osd-num {
+  min-width: 300px; font-size: 190px; line-height: .82; font-weight: 800; letter-spacing: -0.04em;
+  color: var(--osd); font-variant-numeric: tabular-nums;
+}
+.osd-info { flex: 1; padding-bottom: 4px; }
+.osd-name { font-size: 46px; font-weight: 700; }
+.osd-title { font-size: 36px; margin-top: 10px; }
+.osd-time { font-size: 28px; color: #B5CFCB; margin-top: 6px; }
+.osd .bar { width: 100%; background: rgba(255, 255, 255, .2); margin-top: 18px; }
+.osd-next { font-size: 28px; color: #B5CFCB; margin-top: 14px; }
+
+/* Stan połączenia: ładowanie albo błąd */
+.osd-status { font-size: 32px; margin-top: 14px; color: var(--osd); }
+.osd-status.error { color: var(--live); }
+
+.osd-flag {
+  position: absolute; right: 96px; top: 56px; display: flex; align-items: center; gap: 14px;
+  font-size: 30px; font-weight: 600; transition: opacity .3s ease;
+}
+.osd-flag.hidden { opacity: 0; }
+.osd-flag i { width: 18px; height: 18px; border-radius: 50%; background: var(--live); }
+.osd-flag.archive i { background: var(--osd); }
+
+@media (prefers-reduced-motion: reduce) {
+  .osd, .osd-flag { transition: none; }
+}
