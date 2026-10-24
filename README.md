@@ -20,6 +20,13 @@ Nieoficjalny klient Orange TV GO na Google TV i Android TV. Kanały na żywo, ar
 - Android Studio (do zbudowania ze źródeł).
 
 ## Instalacja
+Gotowa wersja aplikacji jest dostępna w sekcji Releases.
+
+1. Otwórz najnowsze wydanie.
+2. W sekcji Assets pobierz plik app-debug.apk.
+3. Zainstaluj plik na urządzeniu z Google TV lub Android TV.
+
+Nie musisz instalować Android Studio ani samodzielnie kompilować aplikacji, aby z niej korzystać.
 
 Z Android Studio:
 
