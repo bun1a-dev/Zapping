@@ -10,8 +10,6 @@ Nieoficjalny klient Orange TV GO na Google TV i Android TV. Kanały na żywo, ar
 
 > Zapping jest niezależnym projektem. Nie jest powiązany z Orange Polska ani przez nią wspierany. Orange i Orange TV GO są znakami towarowymi ich właściciela i są tu użyte wyłącznie do opisania zgodności. Do korzystania z aplikacji potrzebna jest własna, aktywna subskrypcja.
 
-> **Projekt vibecoded.** Kod powstał w całości z pomocą asystenta AI, a człowiek kierował projektem, testował go na prawdziwym telewizorze i sprawdzał działanie. Nie przeszedł niezależnego audytu bezpieczeństwa ani przeglądu kodu przez doświadczonego programistę Androida. Traktuj go jako działający prototyp i przeczytaj kod, zanim mu zaufasz.
-
 ## Funkcje
 
 - Kanały na żywo z panelem "teraz leci", godzinami programu i paskiem postępu.
