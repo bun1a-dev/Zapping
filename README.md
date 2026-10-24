@@ -1,4 +1,10 @@
-# Zapping
+<h1>
+  Zapping
+  <img src="https://github.com/bun1a-dev/Zapping/blob/main/branding/banner.png?raw=true"
+       width="200"
+       align="right"
+       alt="Zapping banner">
+</h1>
 
 Nieoficjalny klient Orange TV GO na Google TV i Android TV. Kanały na żywo, archiwum programów i przewodnik, w całości do obsługi pilotem.
 
